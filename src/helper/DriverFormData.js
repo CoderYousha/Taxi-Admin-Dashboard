@@ -1,4 +1,4 @@
-export function buildDriverFormData ({
+export function buildDriverFormData({
     firstName,
     lastName,
     phone,
@@ -13,7 +13,7 @@ export function buildDriverFormData ({
     mechanics,
     carType,
     carTypeId,
-}){
+}) {
     const formData = new FormData();
 
     formData.append('firstName', firstName);
@@ -23,7 +23,7 @@ export function buildDriverFormData ({
     formData.append('roll', 'Driver');
     formData.append('name', category);
     formData.append('firstName', firstName);
-    formData.append('type', type);
+    if (type) formData.append('type', type);
     formData.append('price', price);
     formData.append('image', image);
     formData.append('IDImage', idImage);

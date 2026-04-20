@@ -18,6 +18,7 @@ import Fetch from "../../services/Fetch";
 import DeleteDialog from "../../popup/DeleteDialog";
 import AddDriver from "../../popup/user/AddDriver";
 import UpdateDriver from "../../popup/user/UpdateDriver";
+import DriverImage from "../../popup/user/DriverImage";
 
 function Drivers() {
     const { language, host } = useConstants();
@@ -94,7 +95,6 @@ function Drivers() {
                                     </Button>
                                 </Box>
 
-
                                 <Box>
                                     <TableContainer className="" component={Paper} dir={language === 'en' ? 'ltr' : "rtl"}>
                                         {/* Top Table */}
@@ -130,23 +130,23 @@ function Drivers() {
                                                         <StyledTableCell align={language === 'en' ? "left" : "right"} component="th" scope="row">
                                                             {
                                                                 driver.image ?
-                                                                    <Avatar className="w-10 h-10" alt="Cindy Baker" src={`${host}/${driver.image}`} />
+                                                                    <Avatar className="w-10 h-10" src={`${host}/storage/${driver.image}`} />
                                                                     :
                                                                     <Box className='w-10 h-10 rounded-full bg-gray-400 text-white text-3xl flex justify-center items-center'>
-                                                                        {driver.full_name.charAt(0)}
+                                                                        {driver.user.firstName.charAt(0)}
                                                                     </Box>
                                                             }
                                                         </StyledTableCell>
-                                                        <StyledTableCell align={language === 'en' ? "left" : "right"} className="">{driver.first_name + ' ' + driver.last_name}</StyledTableCell>
-                                                        <StyledTableCell align={language === 'en' ? "left" : "right"}>{driver.phone}</StyledTableCell>
-                                                        <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">{driver.name}</StyledTableCell>
-                                                        <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">{driver.car_number}</StyledTableCell>
-                                                        <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">{driver.car_type}</StyledTableCell>
+                                                        <StyledTableCell align={language === 'en' ? "left" : "right"} className="">{driver.user.firstName + ' ' + driver.user.lastName}</StyledTableCell>
+                                                        <StyledTableCell align={language === 'en' ? "left" : "right"}>{driver.user.number}</StyledTableCell>
+                                                        <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">{driver.trans_type.name}</StyledTableCell>
+                                                        <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">{driver.carNumber}</StyledTableCell>
+                                                        <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">{driver.type}</StyledTableCell>
                                                         <StyledTableCell align="right">
                                                             <Box className="!flex justify-around items-center">
                                                                 <Button variant="contained" className="!bg-red-300 !font-bold !text-red-800 hover:!bg-red-500 hover:!text-white duration-300" onClick={(e) => { setDriver(driver); setPopup('delete', 'flex') }}><FormattedMessage id='delete' /></Button>
                                                                 <Button variant="contained" className="!bg-green-300 !font-bold !text-green-800 hover:!bg-green-500 hover:!text-white duration-300" onClick={(e) => { setDriver(driver); setPopup('update', 'flex') }}><FormattedMessage id='update' /></Button>
-                                                                <Button variant="contained" className="!bg-orange-300 !font-bold !text-orange-800 hover:!bg-orange-500 hover:!text-white duration-300" onClick={(e) => { setPopup('update', 'flex') }}><FormattedMessage id='images' /></Button>
+                                                                <Button variant="contained" className="!bg-orange-300 !font-bold !text-orange-800 hover:!bg-orange-500 hover:!text-white duration-300" onClick={(e) => { setDriver(driver); setPopup('image', 'flex') }}><FormattedMessage id='id_image' /></Button>
                                                             </Box>
                                                         </StyledTableCell>
                                                     </StyledTableRow>
@@ -172,7 +172,7 @@ function Drivers() {
 
                 {/* Add New Driver Popup */}
                 <Box id="add" sx={{ right: language === 'en' && '0' }} className="w-4/5 h-screen fixed top-0 bg-gray-200 bg-opacity-5 hidden justify-center items-center">
-                    <AddDriver onClickCancel={() => setPopup('add', 'none')} setSnackBar={setSnackBar} setDrivers={setDrivers} />
+                    <AddDriver getDrivers={getDrivers} onClickCancel={() => setPopup('add', 'none')} setSnackBar={setSnackBar} setDrivers={setDrivers} />
                 </Box>
 
                 {/* Update Driver Popup */}
@@ -180,9 +180,14 @@ function Drivers() {
                     <UpdateDriver driver={driver} onClickCancel={() => setPopup('update', 'none')} getDrivers={getDrivers} setSnackBar={setSnackBar} />
                 </Box>
 
-                {/* Delete Client Popup */}
+                {/* Delete Drivrt Popup */}
                 <Box id="delete" sx={{ right: language === 'en' && '0' }} className="w-4/5 h-screen fixed top-0 bg-gray-200 bg-opacity-5 hidden justify-center items-center">
                     <DeleteDialog onClickConfirm={deleteDriver} onClickCancel={() => setPopup('delete', 'none')} title={<FormattedMessage id="delete_driver_title" />} subtitle={<FormattedMessage id="delete_driver_description" />} />
+                </Box>
+
+                {/* ID Image Drivrt Popup */}
+                <Box id="image" sx={{ right: language === 'en' && '0' }} className="w-4/5 h-screen fixed top-0 bg-gray-200 bg-opacity-5 hidden justify-center items-center">
+                    <DriverImage onClickCancel={() => setPopup('image', 'none')} driver={driver} />
                 </Box>
 
                 {/* Snackbar Alert */}

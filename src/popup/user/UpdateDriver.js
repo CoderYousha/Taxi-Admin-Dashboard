@@ -41,20 +41,20 @@ function UpdateDriver({ onClickCancel, setSnackBar, driver, getDrivers }) {
             carType: carType,
             category: category,
             firstName: firstName,
-            idImage: "idImage",
-            image: "image",
+            idImage: idImage,
+            image: image,
             insurance: insurance,
             lastName: lastName,
             mechanics: mechanics,
             password: password,
             phone: phone,
             price: price,
-            type: type,
+            // type: type,
             carTypeId: carTypeId,
         });
 
 
-        let result = await Fetch(host + '/api/drivers/store', 'POST',
+        let result = await Fetch(host + `/api/drivers/update/${driver.id}`, 'POST',
             formData
             //  JSON.stringify({
             // carNumber: carNumber,
@@ -86,19 +86,19 @@ function UpdateDriver({ onClickCancel, setSnackBar, driver, getDrivers }) {
     }
 
     const resetValue = () => {
-        setFirstName('');
-        setLastName('');
+        setFirstName(driver.user.firstName);
+        setLastName(driver.user.lastName);
         setPassword('');
-        setPhone('');
+        setPhone(driver.user.number);
         setImage('');
-        setCarNumber('');
-        setCarType('');
-        setMechanics('');
-        setInsurance('');
-        setCategory('');
-        setPrice('');
-        setType('');
-        setCarTypeId('');
+        setCarNumber(driver.carNumber);
+        setCarType(driver.type);
+        setMechanics(driver.mechanics);
+        setInsurance(driver.insurance);
+        setCategory(driver.trans_type.name);
+        setPrice(driver.trans_type.price);
+        setType(driver.trans_type.type);
+        setCarTypeId(driver.trans_type.id);
     }
 
     useEffect(() => {

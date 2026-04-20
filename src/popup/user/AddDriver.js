@@ -12,7 +12,7 @@ import { buildDriverFormData } from "../../helper/DriverFormData";
 import FetchContent from "../../services/FetchContent";
 import { useEffect, useState } from "react";
 
-function AddDriver({ onClickCancel, setSnackBar, setDrivers }) {
+function AddDriver({ onClickCancel, setSnackBar, getDrivers }) {
     const theme = useTheme();
     const { host, language } = useConstants();
     const { sendWait, setSendWait } = useWaits();
@@ -41,8 +41,8 @@ function AddDriver({ onClickCancel, setSnackBar, setDrivers }) {
             carType: carType,
             category: category,
             firstName: firstName,
-            idImage: "idImage",
-            image: "image",
+            idImage: idImage,
+            image: image,
             insurance: insurance,
             lastName: lastName,
             mechanics: mechanics,
@@ -56,27 +56,27 @@ function AddDriver({ onClickCancel, setSnackBar, setDrivers }) {
 
         let result = await Fetch(host + '/api/drivers/store', 'POST',
             formData
-            //  JSON.stringify({
-            // carNumber: carNumber,
-            // typeCar: carType,
-            // category: category,
-            // firstName: firstName,
-            // IDImage: idImage,
-            // image: image,
-            // insurance: insurance,
-            // lastName: lastName,
-            // mechanics: mechanics,
-            // password: password,
-            // number: phone,
-            // price: price,
-            // type: type,
-            // CarTypeId: carTypeId,
-        // })
-    );
+            // JSON.stringify({
+            //     carNumber: carNumber,
+            //     typeCar: carType,
+            //     category: category,
+            //     firstName: firstName,
+            //     IDImage: 'idImage',
+            //     image: 'image',
+            //     insurance: insurance,
+            //     lastName: lastName,
+            //     mechanics: mechanics,
+            //     password: password,
+            //     number: phone,
+            //     price: price,
+            //     type: type,
+            //     CarTypeId: carTypeId,
+            // })
+        );
 
         if (result.status === 200) {
             setSnackBar('success', <FormattedMessage id="added_success" />);
-            setDrivers((prevDrivers) => [result.data.data, ...prevDrivers]);
+            getDrivers();
             onClickCancel();
         } else if (result.status === 422) {
             setSnackBar('error', <FormattedMessage id="fields_empty" />);
@@ -148,7 +148,7 @@ function AddDriver({ onClickCancel, setSnackBar, setDrivers }) {
                     <select value={carTypeId} className="w-2/5 border-2 rounded-md py-3 outline-none max-sm:w-full" onChange={(e) => setCarTypeId(e.target.value)}>
                         <option selected value="" disabled>Car Category</option>
                         {
-                            carCategories.map((carCategory, index) => 
+                            carCategories.map((carCategory, index) =>
                                 <option selected value={carCategory.id}>{carCategory.name}</option>
                             )
                         }
