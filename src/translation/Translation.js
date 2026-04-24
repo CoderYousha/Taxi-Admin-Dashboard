@@ -89,6 +89,8 @@ function Translation() {
             update_driver: "Update Driver",
             delete_driver_title: "Delete Driver",
             delete_driver_description: "Are you sure that you want delete this driver?",
+            first_name: "First Name",
+            last_name: "Last Name",
         },
         ar: {
             procedures: "الإجراءات",
@@ -181,6 +183,8 @@ function Translation() {
             update_driver: "تعديل السائق",
             delete_driver_title: "حذف السائق",
             delete_driver_description: "هل انت متأكد أنك ترغب بحذف هذا السائق؟",
+            first_name: "الاسم الأول",
+            last_name: "الاسم الأخير",
         }
     };
 }

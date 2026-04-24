@@ -71,8 +71,8 @@ function UpdateDriver({ onClickCancel, setSnackBar, driver, getDrivers }) {
             // price: price,
             // type: type,
             // CarTypeId: carTypeId,
-        // })
-    );
+            // })
+        );
 
         if (result.status === 200) {
             setSnackBar('success', <FormattedMessage id="updated_success" />);
@@ -106,7 +106,7 @@ function UpdateDriver({ onClickCancel, setSnackBar, driver, getDrivers }) {
     }, []);
 
     useEffect(() => {
-        if(driver)
+        if (driver)
             resetValue();
     }, [driver])
 
@@ -119,20 +119,21 @@ function UpdateDriver({ onClickCancel, setSnackBar, driver, getDrivers }) {
             <Divider className="!my-5" />
             <Box>
                 <Box className='flex justify-between max-sm:flex-col'>
-                    <TextField variant="outlined" label='First Name' className="w-2/5 max-sm:w-full" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-                    <TextField variant="outlined" label='Last Name' className="w-2/5 max-sm:w-full max-sm:!mt-3" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                    <TextField variant="outlined" label={<FormattedMessage id="first_name" />} className="w-2/5 max-sm:w-full" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                    <TextField variant="outlined" label={<FormattedMessage id="last_name" />} className="w-2/5 max-sm:w-full max-sm:!mt-3" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                 </Box>
-                <Box className='flex justify-between max-sm:flex-col'>
-                    <Box dir="ltr" className="w-2/5 h-14 mt-5 max-sm:h-12 max-sm:w-full">
-                        <Typography variant="body2" className="!mb-2"><FormattedMessage id="phone" /></Typography>
+                <Box className='flex justify-between mt-3 max-sm:flex-col'>
+                    <TextField type="number" variant="outlined" label={<FormattedMessage id="phone" />} className="w-2/5 max-sm:w-full" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                    {/* <Box dir="ltr" className="w-2/5 h-14 mt-5 max-sm:h-12 max-sm:w-full"> */}
+                    {/* <Typography variant="body2" className="!mb-2"><FormattedMessage id="phone" /></Typography>
                         <PhoneInput value={phone} onChange={handlePhone} country={'us'} containerStyle={{ width: "100%" }} inputStyle={{
                             width: '100%',
                             height: "100%"
-                        }} />
-                    </Box>
-                    <TextField type="password" variant="outlined" label={<FormattedMessage id="password" />} className="w-2/5 !mt-10 max-sm:w-full" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        }} /> */}
+                    {/* </Box> */}
+                    <TextField type="password" variant="outlined" label={<FormattedMessage id="password" />} className="w-2/5 max-sm:w-full" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </Box>
-                <Box className='flex justify-between mt-5 max-sm:flex-col'>
+                {/* <Box className='flex justify-between mt-5 max-sm:flex-col'>
                     <TextField variant="outlined" label='Category' className="w-2/5 max-sm:w-full" value={category} onChange={(e) => setCategory(e.target.value)} />
                     <select value={type} className="w-2/5 border-2 rounded-md py-3 outline-none max-sm:w-full" onChange={(e) => setType(e.target.value)}>
                         <option selected value="" disabled><FormattedMessage id="type" /></option>
@@ -143,7 +144,7 @@ function UpdateDriver({ onClickCancel, setSnackBar, driver, getDrivers }) {
                 <Box className='flex justify-between mt-5 max-sm:flex-col'>
                     <TextField type="number" variant="outlined" label='Price' className="w-2/5 max-sm:w-full" value={price} onChange={(e) => setPrice(e.target.value)} />
                     <TextField variant="outlined" label='Car Number' className="w-2/5 max-sm:w-full max-sm:!mt-3" value={carNumber} onChange={(e) => setCarNumber(e.target.value)} />
-                </Box>
+                </Box> */}
                 <Box className='flex justify-between mt-5 max-sm:flex-col'>
                     <TextField variant="outlined" label='Insurance' className="w-2/5 max-sm:w-full" value={insurance} onChange={(e) => setInsurance(e.target.value)} />
                     <TextField variant="outlined" label='Mechanics' className="w-2/5 max-sm:w-full max-sm:!mt-3" value={mechanics} onChange={(e) => setMechanics(e.target.value)} />
@@ -153,7 +154,7 @@ function UpdateDriver({ onClickCancel, setSnackBar, driver, getDrivers }) {
                     <select value={carTypeId} className="w-2/5 border-2 rounded-md py-3 outline-none max-sm:w-full" onChange={(e) => setCarTypeId(e.target.value)}>
                         <option selected value="" disabled>Car Category</option>
                         {
-                            carCategories.map((carCategory, index) => 
+                            carCategories.map((carCategory, index) =>
                                 <option selected value={carCategory.id}>{carCategory.name}</option>
                             )
                         }

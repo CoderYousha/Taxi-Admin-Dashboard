@@ -25,8 +25,8 @@ export function buildDriverFormData({
     formData.append('firstName', firstName);
     if (type) formData.append('type', type);
     formData.append('price', price);
-    formData.append('image', image);
-    formData.append('IDImage', idImage);
+    if(image) formData.append('image', image);
+    if(idImage) formData.append('IDImage', idImage);
     formData.append('carNumber', carNumber);
     formData.append('insurance', insurance);
     formData.append('mechanics', mechanics);
