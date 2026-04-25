@@ -101,13 +101,13 @@ function CarCategories() {
                                                     <input style={{ backgroundColor: theme.palette.background.default }} onChange={(e) => setSearch(e.target.value)} className="w-11/12 h-12 rounded-md border indent-14 outline-none max-sm:w-full" placeholder={intl.formatMessage({ id: "search_category" })} />
                                                     <SearchOutlinedIcon className="absolute top-1/2 -translate-y-1/2 right-3 text-gray-500" sx={{ right: language === 'en' && '90%' }} />
                                                 </Box>
-                                                <Box className="flex w-2/4 items-center max-sm:w-full max-sm:mt-2 max-sm:justify-between">
+                                                {/* <Box className="flex w-2/4 items-center max-sm:w-full max-sm:mt-2 max-sm:justify-between">
                                                     <select onChange={(e) => setSearchType(e.target.value)} style={{ backgroundColor: theme.palette.background.select }} className="w-2/5 py-1 rounded-lg mx-3 outline-none">
                                                         <option value="" disabled selected><FormattedMessage id='type' /></option>
                                                         <option value="KM"><FormattedMessage id='km' /></option>
                                                         <option value="Time"><FormattedMessage id='time' /></option>
                                                     </select>
-                                                </Box>
+                                                </Box> */}
                                             </Box>
                                             <Box className="flex w-2/4 items-center justify-end max-sm:mt-2 max-sm:w-full max-sm:justify-between">
                                                 <Typography variant="body1" className="!text-gray-500"><FormattedMessage id='total_categories' />: {categories.length}</Typography>
@@ -119,8 +119,8 @@ function CarCategories() {
                                             <TableHead className="bg-gray-200">
                                                 <TableRow sx={{ backgroundColor: theme.palette.background.paper }}>
                                                     <StyledTableCell align={language === 'en' ? "left" : "right"}><FormattedMessage id='category' /></StyledTableCell>
-                                                    <StyledTableCell align={language === 'en' ? "left" : "right"} className=""><FormattedMessage id='type' /></StyledTableCell>
-                                                    <StyledTableCell align={language === 'en' ? 'left' : 'right'} className=""><FormattedMessage id='price' /></StyledTableCell>
+                                                    <StyledTableCell align={language === 'en' ? "left" : "right"} className=""><FormattedMessage id='km_price' /></StyledTableCell>
+                                                    <StyledTableCell align={language === 'en' ? 'left' : 'right'} className=""><FormattedMessage id='time_price' /></StyledTableCell>
                                                     <StyledTableCell align={language === 'en' ? 'left' : 'right'} className="!text-center"><FormattedMessage id='procedures' /></StyledTableCell>
                                                 </TableRow>
                                             </TableHead>
@@ -129,8 +129,8 @@ function CarCategories() {
                                                     categories.map((category, index) =>
                                                         <StyledTableRow className="hover:bg-gray-200 duration-100 cursor-pointer">
                                                             <StyledTableCell align={language === 'en' ? "left" : "right"} className="">{category.name}</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="">{category.type}</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="">{category.price}</StyledTableCell>
+                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="">{category.KMPrice}</StyledTableCell>
+                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="">{category.timePrice}</StyledTableCell>
                                                             <StyledTableCell align="right">
                                                                 <Box className="!flex justify-center items-center">
                                                                     <Button variant="contained" className="!bg-red-300 !font-bold !text-red-800 hover:!bg-red-500 hover:!text-white duration-300 !mr-2" onClick={(e) => { setCategory(category); setPopup('delete', 'flex') }}><FormattedMessage id='delete' /></Button>

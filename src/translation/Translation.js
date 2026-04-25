@@ -91,6 +91,8 @@ function Translation() {
             delete_driver_description: "Are you sure that you want delete this driver?",
             first_name: "First Name",
             last_name: "Last Name",
+            km_price: "KM Price",
+            time_price: "Time Price",
         },
         ar: {
             procedures: "الإجراءات",
@@ -185,6 +187,8 @@ function Translation() {
             delete_driver_description: "هل انت متأكد أنك ترغب بحذف هذا السائق؟",
             first_name: "الاسم الأول",
             last_name: "الاسم الأخير",
+            km_price: "تكلفة الكيلو متر",
+            time_price: "تكلفة الزمن",
         }
     };
 }

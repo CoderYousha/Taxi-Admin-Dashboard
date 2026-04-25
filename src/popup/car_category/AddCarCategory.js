@@ -11,14 +11,14 @@ function AddCarCategory({ onClickCancel, setSnackBar, setCategories }) {
     const theme = useTheme();
     const { host, language } = useConstants();
     const { sendWait, setSendWait } = useWaits();
-    const { category, setCategory, type, setType, price, setPrice } = useAddCarCategory();
+    const { category, setCategory, timePrice, setTimePrice, kmPrice, setKmPrice } = useAddCarCategory();
 
     const addCategory = async () => {
         setSendWait(true);
         const formData = buildCarCategoryFormData({
             category: category,
-            type: type,
-            price: price,
+            timePrice: timePrice,
+            kmPrice: kmPrice,
         });
 
         let result = await Fetch(host + '/api/car-types/store', 'POST', formData);
@@ -28,7 +28,7 @@ function AddCarCategory({ onClickCancel, setSnackBar, setCategories }) {
             setCategories((prevCategories) => [result.data.data, ...prevCategories]);
             onClickCancel();
         } else if (result.status === 422) {
-            setSnackBar('error', <FormattedMessage id="fields_empty"/>);
+            setSnackBar('error', <FormattedMessage id="fields_empty" />);
         }
 
         setSendWait(false);
@@ -36,8 +36,8 @@ function AddCarCategory({ onClickCancel, setSnackBar, setCategories }) {
 
     const resetValue = () => {
         setCategory('');
-        setType('KM');
-        setPrice('');
+        setKmPrice('');
+        setTimePrice('');
     }
 
     return (
@@ -52,13 +52,10 @@ function AddCarCategory({ onClickCancel, setSnackBar, setCategories }) {
                     <TextField variant="outlined" label={<FormattedMessage id="category" />} className="w-full max-sm:w-full" value={category} onChange={(e) => setCategory(e.target.value)} />
                 </Box>
                 <Box className='mt-16 max-sm:flex-col'>
-                    <select value={type} className="w-full border-2 rounded-md py-3 outline-none" onChange={(e) => setType(e.target.value)}>
-                        <option selected value="KM"><FormattedMessage id="km" /></option>
-                        <option value="Time"><FormattedMessage id="time"/></option>
-                    </select>
+                    <TextField type="number" variant="outlined" label={<FormattedMessage id="km_price" />} className="w-full max-sm:w-full" value={kmPrice} onChange={(e) => setKmPrice(e.target.value)} />
                 </Box>
                 <Box className='mt-16 max-sm:flex-col'>
-                    <TextField type="number" variant="outlined" label={<FormattedMessage id="price" />} className="w-full max-sm:w-full" value={price} onChange={(e) => setPrice(e.target.value)} />
+                    <TextField type="number" variant="outlined" label={<FormattedMessage id="time_price" />} className="w-full max-sm:w-full" value={timePrice} onChange={(e) => setTimePrice(e.target.value)} />
                 </Box>
                 <Box className='mx-auto w-1/3 mt-10 max-sm:w-full'>
                     <Button variant='outlined' className='!rounded-full w-full !border-green-500 !bg-green-500 !text-white hover:!bg-white hover:!text-green-500' onClick={addCategory}>

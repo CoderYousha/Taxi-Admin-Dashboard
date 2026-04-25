@@ -1,14 +1,14 @@
 export function buildCarCategoryFormData ({
     category,
-    type,
-    price,
+    kmPrice,
+    timePrice,
     id
 }){
     const formData = new FormData();
 
     formData.append('name', category);
-    formData.append('type', type);
-    formData.append('price', price);
+    formData.append('timePrice', timePrice);
+    formData.append('KMPrice', kmPrice);
     formData.append('id', id);
 
     return formData;
