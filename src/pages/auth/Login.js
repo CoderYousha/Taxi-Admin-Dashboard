@@ -20,13 +20,8 @@ function Login() {
 
     {/* Check Login Function */ }
     const checkLogin = async () => {
-        // let result = await CheckLogin(host);
-        // if (result) {
-        //     navigate('/employees');
-        // } else {
-        //     setGetWait(false);
-        // }
-        if (localStorage.getItem('token')) {
+        let result = await CheckLogin(host);
+        if (result) {
             navigate('/car-categories');
         } else {
             setGetWait(false);
@@ -42,7 +37,6 @@ function Login() {
 
         if (result.status === 200) {
             localStorage.setItem('token', result.data.token);
-            // localStorage.setItem('language', result.data.data.user.language);
             navigate('/car-categories');
         } else if (result.status === 401) {
             setSnackBar('error', "Incorrect phone number or password");

@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 
 async function CheckLogin(host) {
 
-     let result = await fetch(host + '/account/get-profile', {
-          method: "GET",
+     let result = await fetch(host + '/api/getProfile', {
+          method: "POST",
           headers: {
                'Authorization': `Bearer ${localStorage.getItem('token')}`,
           }
@@ -15,7 +15,6 @@ async function CheckLogin(host) {
      } else {
           return false;
      }
-
 }
 
 export default CheckLogin;

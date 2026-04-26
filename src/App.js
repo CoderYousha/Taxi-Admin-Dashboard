@@ -33,12 +33,12 @@ function App() {
               }
               {
                 CategoryRoutes().map((route, index) =>
-                  <Route key={index} path={route.path} element={<><Sidebar />{route.element}</>} />
+                  <Route key={index} path={route.path} element={<AuthProvider><Sidebar />{route.element}</AuthProvider>} />
                 )
               }
               {
                 UserRoutes().map((route, index) =>
-                  <Route key={index} path={route.path} element={<><Sidebar />{route.element}</>} />
+                  <Route key={index} path={route.path} element={<AuthProvider><Sidebar />{route.element}</AuthProvider>} />
                 )
               }
             </Routes>
