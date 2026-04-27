@@ -50,7 +50,7 @@ function CarCategories() {
 
     {/* Delete Category Function */ }
     const deleteCategory = async () => {
-        let result = await Fetch(host + `/api/car-types/destroy/${category.id}`, 'DELETE', null);
+        let result = await Fetch(host + `/api/car-types/${category.id}/force`, 'DELETE', null);
 
         if (result.status === 200) {
             setCategories((prevCategories) => prevCategories.filter((prevCategory) => prevCategory.id !== category.id));
