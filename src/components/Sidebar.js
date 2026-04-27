@@ -9,6 +9,7 @@ import { usePopups } from "../hooks/UsePopups";
 import LogoutPopup from "../popup/Logout";
 import LocalTaxiIcon from '@mui/icons-material/LocalTaxi';
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import Logo from "../images/logo/GS-taxi.png";
 
 function Sidebar() {
@@ -17,6 +18,11 @@ function Sidebar() {
     const navigate = useNavigate();
     const { setPopup } = usePopups();
     const contents = [
+        {
+            "title": <FormattedMessage id="dashboard" />,
+            "icon": <DashboardOutlinedIcon fontSize="large" className="text-yellow-500" />,
+            "path": "/dashboard",
+        },
         {
             "title": <FormattedMessage id="car_categories" />,
             "icon": <LocalTaxiIcon fontSize="large" className="text-yellow-500" />,

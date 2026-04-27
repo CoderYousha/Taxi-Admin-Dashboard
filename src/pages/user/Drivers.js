@@ -48,14 +48,9 @@ function Drivers() {
         setGetWait(false);
     }
 
-    {/*  Get Specefic Driver Details */ }
-    const driverDetails = async (id) => {
-        // setClient(clients.filter((client) => client.id === id)[0]);
-    }
-
     {/* Delete Driver Function */ }
     const deleteDriver = async () => {
-        let result = await Fetch(host + `/api/drivers/destroy/${driver.id}`, 'DELETE', null);
+        let result = await Fetch(host + `/api/drivers/${driver.id}/force`, 'DELETE', null);
 
         if (result.status === 200) {
             setDrivers((prevDrivers) => prevDrivers.filter((prevDriver) => prevDriver.id !== driver.id));

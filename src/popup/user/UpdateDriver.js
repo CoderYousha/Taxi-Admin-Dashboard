@@ -140,11 +140,7 @@ function UpdateDriver({ onClickCancel, setSnackBar, driver, getDrivers }) {
                         <option selected value="KM"><FormattedMessage id="km" /></option>
                         <option value="Time"><FormattedMessage id="time" /></option>
                     </select>
-                </Box>
-                <Box className='flex justify-between mt-5 max-sm:flex-col'>
-                    <TextField type="number" variant="outlined" label='Price' className="w-2/5 max-sm:w-full" value={price} onChange={(e) => setPrice(e.target.value)} />
-                    <TextField variant="outlined" label='Car Number' className="w-2/5 max-sm:w-full max-sm:!mt-3" value={carNumber} onChange={(e) => setCarNumber(e.target.value)} />
-                </Box> */}
+                </Box>*/}
                 <Box className='flex justify-between mt-5 max-sm:flex-col'>
                     <TextField variant="outlined" label='Insurance' className="w-2/5 max-sm:w-full" value={insurance} onChange={(e) => setInsurance(e.target.value)} />
                     <TextField variant="outlined" label='Mechanics' className="w-2/5 max-sm:w-full max-sm:!mt-3" value={mechanics} onChange={(e) => setMechanics(e.target.value)} />
@@ -159,6 +155,9 @@ function UpdateDriver({ onClickCancel, setSnackBar, driver, getDrivers }) {
                             )
                         }
                     </select>
+                </Box>
+                <Box className='flex justify-between mt-5 max-sm:flex-col'>
+                    <TextField variant="outlined" label={<FormattedMessage id="car_number" />} className="w-2/5 max-sm:w-full max-sm:!mt-3" value={carNumber} onChange={(e) => setCarNumber(e.target.value)} />
                 </Box>
                 <Box className="relative w-full h-32 bg-gray-200 rounded-xl mt-10 flex flex-col items-center justify-center cursor-pointer">
                     <CloudUploadOutlinedIcon fontSize="large" className="" />

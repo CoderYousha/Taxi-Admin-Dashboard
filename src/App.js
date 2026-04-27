@@ -14,6 +14,7 @@ import Sidebar from './components/Sidebar';
 import UserRoutes from './routes/UserRoutes';
 import 'react-phone-input-2/lib/style.css';
 import { useEffect } from 'react';
+import DashboardRoutes from './routes/DashboardRoutes';
 
 function App() {
   const { language } = useConstants();
@@ -38,6 +39,11 @@ function App() {
               }
               {
                 UserRoutes().map((route, index) =>
+                  <Route key={index} path={route.path} element={<AuthProvider><Sidebar />{route.element}</AuthProvider>} />
+                )
+              }
+              {
+                DashboardRoutes().map((route, index) =>
                   <Route key={index} path={route.path} element={<AuthProvider><Sidebar />{route.element}</AuthProvider>} />
                 )
               }

@@ -93,6 +93,12 @@ function Translation() {
             last_name: "Last Name",
             km_price: "KM Price",
             time_price: "Time Price",
+            dashboard_title: "Dashboard Overview",
+            passenger_card: "Total Registerd Passengers",
+            last_month: "from last month",
+            driver_card: "Total Active Drivers",
+            financial_card: "Financial Overview",
+            recent_alerts: "Recent Alerts & SOS Events",
         },
         ar: {
             procedures: "الإجراءات",
@@ -189,6 +195,12 @@ function Translation() {
             last_name: "الاسم الأخير",
             km_price: "تكلفة الكيلو متر",
             time_price: "تكلفة الزمن",
+            dashboard_title: "لوحة التحكم",
+            passenger_card: "إجمالي الركاب المسجلين",
+            last_month: "من آخر شهر",
+            driver_card: "إجمالي السائقين النشطين",
+            financial_card: "المالية",
+            recent_alerts: "آخر التنبيهات وحالات الطوارئ",
         }
     };
 }
