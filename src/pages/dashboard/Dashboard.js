@@ -15,7 +15,7 @@ function Dashboard() {
             <Box sx={{ backgroundColor: theme.palette.background.default }}>
                 <Box className="w-4/5 rounded-xl relative h-screen overflow-y-scroll none-view-scroll" dir={language === 'en' ? 'ltr' : "rtl"} sx={{ float: language === 'en' && 'right' }}>
                     <Typography fontWeight={800} variant="h4" className="p-5"><FormattedMessage id="dashboard_title" /></Typography>
-                    <Box className="flex justify-between px-5 gap-x-5">
+                    <Box className="flex justify-between px-5 gap-x-5 max-sm:flex-col max-sm:gap-y-5">
                         <Box className="bg-white w-full rounded-lg shadow-lg px-3 py-5 relative">
                             <Typography variant="body1"><FormattedMessage id="passenger_card" /></Typography>
                             <Typography className="py-2" variant="h4">12458</Typography>

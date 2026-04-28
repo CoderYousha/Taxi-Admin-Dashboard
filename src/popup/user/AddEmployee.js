@@ -8,53 +8,36 @@ import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import AuthContext from "../../context/AuthContext";
 import Fetch from "../../services/Fetch";
 import { useAddDriver } from "../../hooks/UseAddDriver";
-import { buildDriverFormData } from "../../helper/DriverFormData";
 import FetchContent from "../../services/FetchContent";
 import { useEffect, useState } from "react";
+import { useAddEmployee } from "../../hooks/UseAddEmployee";
+import { buildEmployeeFormData } from "../../helper/EmployeeFormData";
 
-function AddDriver({ onClickCancel, setSnackBar, getDrivers }) {
+function AddEmployee({ onClickCancel, setSnackBar, getEmployees }) {
     const theme = useTheme();
     const { host, language } = useConstants();
     const { sendWait, setSendWait } = useWaits();
-    const { firstName, carNumber, carType, category, idImage, image, insurance, lastName, mechanics, password, phone, price, setCarNumber,
-        setCarType, setCategory, setFirstName, setIdImage, setImage, setInsurance, setLastName, setMechanics, setPassword, setPhone,
-        setPrice, setType, type, carTypeId, setCarTypeId,
-    } = useAddDriver();
-    const [carCategories, setCarCategories] = useState([]);
-
-    const getCarCategories = async () => {
-        let result = await Fetch(host + `/api/car-types/index`, 'GET', null);
-        if (result.status === 200) {
-            setCarCategories(result.data.carTypes);
-        }
-    }
+    const { firstName, lastName, password, phone, image, status, role, setFirstName, setLastName, setPhone, setImage,
+        setStatus, setRole, setPassword } = useAddEmployee();
 
     const addUser = async () => {
         setSendWait(true);
 
-        const formData = buildDriverFormData({
-            carNumber: carNumber,
-            carType: carType,
-            category: category,
+        const formData = buildEmployeeFormData({
             firstName: firstName,
-            idImage: idImage,
-            image: image,
-            insurance: insurance,
             lastName: lastName,
-            mechanics: mechanics,
-            password: password,
             phone: phone,
-            price: price,
-            type: type,
-            carTypeId: carTypeId,
+            image: image,
+            status: status,
+            role: role,
         });
 
 
-        let result = await Fetch(host + '/api/drivers/store', 'POST', formData);
+        let result = await Fetch(host + '/api/employees/store', 'POST', formData);
 
         if (result.status === 200) {
             setSnackBar('success', <FormattedMessage id="added_success" />);
-            getDrivers();
+            getEmployees();
             onClickCancel();
         } else if (result.status === 422) {
             setSnackBar('error', <FormattedMessage id="fields_empty" />);
@@ -69,24 +52,14 @@ function AddDriver({ onClickCancel, setSnackBar, getDrivers }) {
         setPassword('');
         setPhone('');
         setImage('');
-        setCarNumber('');
-        setCarType('');
-        setMechanics('');
-        setInsurance('');
-        setCategory('');
-        setPrice('');
-        setType('');
-        setCarTypeId('');
+        setStatus(0);
+        setRole('');
     }
 
-    useEffect(() => {
-        getCarCategories();
-    }, [])
-
     return (
-        <Box sx={{ backgroundColor: theme.palette.background.paper }} className="shadow-lg w-3/5 h-screen rounded-3xl px-4 py-5 overflow-y-scroll none-view-scroll max-sm:w-4/5 max-sm:translate-x-0 max-sm:left-0 relative max-sm:overflow-y-scroll max-sm:h-screen" dir={language === 'en' ? 'ltr' : "rtl"}>
+        <Box sx={{ backgroundColor: theme.palette.background.paper }} className="shadow-lg w-3/5 rounded-3xl px-4 py-5 overflow-y-scroll none-view-scroll max-sm:w-4/5 max-sm:translate-x-0 max-sm:left-0 relative max-sm:overflow-y-scroll max-sm:h-screen" dir={language === 'en' ? 'ltr' : "rtl"}>
             <Typography variant="h5" className="!font-semibold max-sm:!text-xl">
-                <FormattedMessage id='add_driver' />
+                <FormattedMessage id='add_employee' />
             </Typography>
             <CloseIcon onClick={() => { resetValue(); onClickCancel(); }} className="text-gray-700 cursor-pointer absolute top-5 left-5" fontSize="large" sx={{ left: language === 'en' && '90%' }}></CloseIcon>
             <Divider className="!my-5" />
@@ -100,32 +73,20 @@ function AddDriver({ onClickCancel, setSnackBar, getDrivers }) {
                     <TextField type="password" variant="outlined" label={<FormattedMessage id="password" />} className="w-2/5 max-sm:w-full" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </Box>
                 <Box className='flex justify-between mt-5 max-sm:flex-col'>
-                    <TextField variant="outlined" label='Car Number' className="w-2/5 max-sm:w-full max-sm:!mt-3" value={carNumber} onChange={(e) => setCarNumber(e.target.value)} />
-                    <TextField variant="outlined" label='Insurance' className="w-2/5 max-sm:w-full" value={insurance} onChange={(e) => setInsurance(e.target.value)} />
-                </Box>
-                <Box className='flex justify-between mt-5 max-sm:flex-col'>
-                    <TextField variant="outlined" label='Mechanics' className="w-2/5 max-sm:w-full max-sm:!mt-3" value={mechanics} onChange={(e) => setMechanics(e.target.value)} />
-                    <TextField variant="outlined" label='Car Type' className="w-2/5 max-sm:w-full" value={carType} onChange={(e) => setCarType(e.target.value)} />
-                </Box>
-                <Box className='flex justify-between mt-5 max-sm:flex-col'>
-                    <select value={carTypeId} className="w-full border-2 rounded-md py-3 outline-none max-sm:w-full" onChange={(e) => setCarTypeId(e.target.value)}>
-                        <option selected value="" disabled>Car Category</option>
-                        {
-                            carCategories.map((carCategory, index) =>
-                                <option selected value={carCategory.id}>{carCategory.name}</option>
-                            )
-                        }
+                    <select value={role} className="w-full border-2 rounded-md py-3 outline-none max-sm:w-full" onChange={(e) => setRole(e.target.value)}>
+                        <option selected value="" disabled><FormattedMessage id="role" /></option>
+                        <option selected value="">Support</option>
+                        <option selected value="">Manager</option>
                     </select>
                 </Box>
+                <FormControlLabel
+                    control={<Checkbox checked={status} onChange={(e) => setStatus(e.target.checked)} />}
+                    label={<FormattedMessage id="status" />}
+                />
                 <Box className="relative w-full h-32 bg-gray-200 rounded-xl mt-10 flex flex-col items-center justify-center cursor-pointer">
                     <CloudUploadOutlinedIcon fontSize="large" className="" />
                     <Typography variant="body1" className="text-gray-700"><FormattedMessage id="image" /></Typography>
                     <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} className="w-full h-full opacity-0 absolute cursor-pointer" />
-                </Box>
-                <Box className="relative w-full h-32 bg-gray-200 rounded-xl mt-10 flex flex-col items-center justify-center cursor-pointer">
-                    <CloudUploadOutlinedIcon fontSize="large" className="" />
-                    <Typography variant="body1" className="text-gray-700"><FormattedMessage id="id_image" /></Typography>
-                    <input type="file" accept="image/*" onChange={(e) => setIdImage(e.target.files[0])} className="w-full h-full opacity-0 absolute cursor-pointer" />
                 </Box>
                 <Box className='mx-auto w-1/3 mt-10 max-sm:w-full'>
                     <Button onClick={addUser} variant='outlined' className='!rounded-full w-full !border-green-500 !bg-green-500 !text-white hover:!bg-white hover:!text-green-500'>
@@ -142,4 +103,4 @@ function AddDriver({ onClickCancel, setSnackBar, getDrivers }) {
     );
 }
 
-export default AddDriver;
+export default AddEmployee;

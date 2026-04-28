@@ -1,4 +1,5 @@
 import Drivers from "../pages/user/Drivers";
+import Employees from "../pages/user/Employees";
 
 
 function UserRoutes(){
@@ -6,6 +7,10 @@ function UserRoutes(){
         {
             path: "/drivers",
             element: <Drivers />
+        },
+        {
+            path: "/employees",
+            element: <Employees />
         },
     ];
 }

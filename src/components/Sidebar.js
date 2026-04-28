@@ -33,6 +33,11 @@ function Sidebar() {
             "icon": <PeopleOutlinedIcon fontSize="large" className="text-yellow-500" />,
             "path": "/drivers",
         },
+        {
+            "title": <FormattedMessage id="employees" />,
+            "icon": <PeopleOutlinedIcon fontSize="large" className="text-yellow-500" />,
+            "path": "/employees",
+        },
     ];
 
     return (
@@ -43,16 +48,9 @@ function Sidebar() {
                     <img src={Logo} className="mt-5" />
                     <Box className='py-5 flex items-center'>
                         <Box className='px-1 py-1 border border-yellow-400 border-r-4 border-b-4 rounded-full relative'>
-                            {/* {
-                                profile.image ?
-                                    <Avatar onClick={() => navigate('/profile')} className="w-10 h-10 cursor-pointer" alt="Cindy Baker" src={`${host}/${profile.image}`} />
-                                    : */}
                             <Box onClick={() => navigate('/profile')} className='w-10 h-10 rounded-full bg-gray-400 text-white text-3xl flex justify-center items-center cursor-pointer'>
                                 {profile.name.charAt(0)}
-                                
                             </Box>
-                            {/* } */}
-                            {/* <Avatar className="cursor-pointer" alt="Cindy Baker" src="/static/images/avatar/1.jpg" /> */}
                         </Box>
                         <Box className='!ml-5 max-sm:hidden'>
                             <Typography variant="h6" fontWeight={800}>{profile.name}</Typography>

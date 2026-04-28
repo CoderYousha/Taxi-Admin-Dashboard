@@ -22,10 +22,6 @@ function UpdateDriver({ onClickCancel, setSnackBar, driver, getDrivers }) {
     } = useAddDriver();
     const [carCategories, setCarCategories] = useState([]);
 
-    const handlePhone = (value, country, e, formattedValue) => {
-        setPhone(value);
-    };
-
     const getCarCategories = async () => {
         let result = await Fetch(host + `/api/car-types/index`, 'GET', null);
         if (result.status === 200) {
@@ -49,30 +45,11 @@ function UpdateDriver({ onClickCancel, setSnackBar, driver, getDrivers }) {
             password: password,
             phone: phone,
             price: price,
-            // type: type,
             carTypeId: carTypeId,
         });
 
 
-        let result = await Fetch(host + `/api/drivers/update/${driver.id}`, 'POST',
-            formData
-            //  JSON.stringify({
-            // carNumber: carNumber,
-            // typeCar: carType,
-            // category: category,
-            // firstName: firstName,
-            // IDImage: idImage,
-            // image: image,
-            // insurance: insurance,
-            // lastName: lastName,
-            // mechanics: mechanics,
-            // password: password,
-            // number: phone,
-            // price: price,
-            // type: type,
-            // CarTypeId: carTypeId,
-            // })
-        );
+        let result = await Fetch(host + `/api/drivers/update/${driver.id}`, 'POST', formData);
 
         if (result.status === 200) {
             setSnackBar('success', <FormattedMessage id="updated_success" />);
@@ -124,23 +101,8 @@ function UpdateDriver({ onClickCancel, setSnackBar, driver, getDrivers }) {
                 </Box>
                 <Box className='flex justify-between mt-3 max-sm:flex-col'>
                     <TextField type="number" variant="outlined" label={<FormattedMessage id="phone" />} className="w-2/5 max-sm:w-full" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                    {/* <Box dir="ltr" className="w-2/5 h-14 mt-5 max-sm:h-12 max-sm:w-full"> */}
-                    {/* <Typography variant="body2" className="!mb-2"><FormattedMessage id="phone" /></Typography>
-                        <PhoneInput value={phone} onChange={handlePhone} country={'us'} containerStyle={{ width: "100%" }} inputStyle={{
-                            width: '100%',
-                            height: "100%"
-                        }} /> */}
-                    {/* </Box> */}
                     <TextField type="password" variant="outlined" label={<FormattedMessage id="password" />} className="w-2/5 max-sm:w-full" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </Box>
-                {/* <Box className='flex justify-between mt-5 max-sm:flex-col'>
-                    <TextField variant="outlined" label='Category' className="w-2/5 max-sm:w-full" value={category} onChange={(e) => setCategory(e.target.value)} />
-                    <select value={type} className="w-2/5 border-2 rounded-md py-3 outline-none max-sm:w-full" onChange={(e) => setType(e.target.value)}>
-                        <option selected value="" disabled><FormattedMessage id="type" /></option>
-                        <option selected value="KM"><FormattedMessage id="km" /></option>
-                        <option value="Time"><FormattedMessage id="time" /></option>
-                    </select>
-                </Box>*/}
                 <Box className='flex justify-between mt-5 max-sm:flex-col'>
                     <TextField variant="outlined" label='Insurance' className="w-2/5 max-sm:w-full" value={insurance} onChange={(e) => setInsurance(e.target.value)} />
                     <TextField variant="outlined" label='Mechanics' className="w-2/5 max-sm:w-full max-sm:!mt-3" value={mechanics} onChange={(e) => setMechanics(e.target.value)} />
