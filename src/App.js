@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './styles/colors.css';
 import './styles/constants.css';
 import './index.css';
+import 'leaflet/dist/leaflet.css';
 import NotAuthProvider from './providers/NotAuthProvider';
 import { useTheme } from '@mui/material/styles';
 import AuthProvider from './providers/AuthProvider';
@@ -15,6 +16,7 @@ import UserRoutes from './routes/UserRoutes';
 import 'react-phone-input-2/lib/style.css';
 import { useEffect } from 'react';
 import DashboardRoutes from './routes/DashboardRoutes';
+import TrackRoutes from './routes/TrackRoutes';
 
 function App() {
   const { language } = useConstants();
@@ -44,6 +46,11 @@ function App() {
               }
               {
                 DashboardRoutes().map((route, index) =>
+                  <Route key={index} path={route.path} element={<AuthProvider><Sidebar />{route.element}</AuthProvider>} />
+                )
+              }
+              {
+                TrackRoutes().map((route, index) =>
                   <Route key={index} path={route.path} element={<AuthProvider><Sidebar />{route.element}</AuthProvider>} />
                 )
               }

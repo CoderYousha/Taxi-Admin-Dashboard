@@ -110,6 +110,8 @@ function Translation() {
             update_employee: "Update Employee",
             delete_employee_title: "Delete Employee",
             delete_employee_description: "Are you sure that you want delete this employee?",
+            tracking: "Tracking",
+            active_drivers: "Active Drivers",
         },
         ar: {
             procedures: "الإجراءات",
@@ -223,6 +225,8 @@ function Translation() {
             update_employee: "تعديل موظف",
             delete_employee_title: "حذف موظف",
             delete_employee_description: "هل أنت متأكد أنك ترغب بحذف هذا الموظف؟",
+            tracking: "التتبع",
+            active_drivers: "السائقين المفعلين",
         }
     };
 }

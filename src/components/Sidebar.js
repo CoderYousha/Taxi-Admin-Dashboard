@@ -10,6 +10,8 @@ import LogoutPopup from "../popup/Logout";
 import LocalTaxiIcon from '@mui/icons-material/LocalTaxi';
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUserCircleOutlined';
+import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 import Logo from "../images/logo/GS-taxi.png";
 
 function Sidebar() {
@@ -35,8 +37,13 @@ function Sidebar() {
         },
         {
             "title": <FormattedMessage id="employees" />,
-            "icon": <PeopleOutlinedIcon fontSize="large" className="text-yellow-500" />,
+            "icon": <SupervisedUserCircleOutlinedIcon fontSize="large" className="text-yellow-500" />,
             "path": "/employees",
+        },
+        {
+            "title": <FormattedMessage id="tracking" />,
+            "icon": <FmdGoodOutlinedIcon fontSize="large" className="text-yellow-500" />,
+            "path": "/track",
         },
     ];
 
