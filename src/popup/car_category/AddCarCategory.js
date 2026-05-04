@@ -11,7 +11,7 @@ function AddCarCategory({ onClickCancel, setSnackBar, setCategories }) {
     const theme = useTheme();
     const { host, language } = useConstants();
     const { sendWait, setSendWait } = useWaits();
-    const { category, setCategory, timePrice, setTimePrice, kmPrice, setKmPrice } = useAddCarCategory();
+    const { category, setCategory, timePrice, setTimePrice, kmPrice, setKmPrice, openPrice, setOpenPrice } = useAddCarCategory();
 
     const addCategory = async () => {
         setSendWait(true);
@@ -19,6 +19,7 @@ function AddCarCategory({ onClickCancel, setSnackBar, setCategories }) {
             category: category,
             timePrice: timePrice,
             kmPrice: kmPrice,
+            openPrice: openPrice
         });
 
         let result = await Fetch(host + '/api/car-types/store', 'POST', formData);
@@ -26,6 +27,7 @@ function AddCarCategory({ onClickCancel, setSnackBar, setCategories }) {
         if (result.status === 200) {
             setSnackBar('success', <FormattedMessage id="added_success" />);
             setCategories((prevCategories) => [result.data.data, ...prevCategories]);
+            resetValue();
             onClickCancel();
         } else if (result.status === 422) {
             setSnackBar('error', <FormattedMessage id="fields_empty" />);
@@ -38,6 +40,7 @@ function AddCarCategory({ onClickCancel, setSnackBar, setCategories }) {
         setCategory('');
         setKmPrice('');
         setTimePrice('');
+        setOpenPrice('');
     }
 
     return (
@@ -56,6 +59,9 @@ function AddCarCategory({ onClickCancel, setSnackBar, setCategories }) {
                 </Box>
                 <Box className='mt-16 max-sm:flex-col'>
                     <TextField type="number" variant="outlined" label={<FormattedMessage id="time_price" />} className="w-full max-sm:w-full" value={timePrice} onChange={(e) => setTimePrice(e.target.value)} />
+                </Box>
+                <Box className='mt-16 max-sm:flex-col'>
+                    <TextField type="number" variant="outlined" label={<FormattedMessage id="open_price" />} className="w-full max-sm:w-full" value={openPrice} onChange={(e) => setOpenPrice(e.target.value)} />
                 </Box>
                 <Box className='mx-auto w-1/3 mt-10 max-sm:w-full'>
                     <Button variant='outlined' className='!rounded-full w-full !border-green-500 !bg-green-500 !text-white hover:!bg-white hover:!text-green-500' onClick={addCategory}>

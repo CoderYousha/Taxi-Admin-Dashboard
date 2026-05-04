@@ -112,6 +112,7 @@ function Translation() {
             delete_employee_description: "Are you sure that you want delete this employee?",
             tracking: "Tracking",
             active_drivers: "Active Drivers",
+            open_price: "Open Price",
         },
         ar: {
             procedures: "الإجراءات",

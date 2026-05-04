@@ -12,7 +12,7 @@ function UpdateCarCategory({ onClickCancel, setSnackBar, categ, getCategories })
     const theme = useTheme();
     const { host, language } = useConstants();
     const { sendWait, setSendWait } = useWaits();
-    const { category, setCategory, timePrice, setTimePrice, kmPrice, setKmPrice } = useAddCarCategory();
+    const { category, setCategory, timePrice, setTimePrice, kmPrice, setKmPrice, openPrice, setOpenPrice } = useAddCarCategory();
 
     const updateCategory = async () => {
         setSendWait(true);
@@ -20,6 +20,7 @@ function UpdateCarCategory({ onClickCancel, setSnackBar, categ, getCategories })
             category: category,
             timePrice: timePrice,
             kmPrice: kmPrice,
+            openPrice: openPrice,
             id: categ.id,
         });
 
@@ -28,6 +29,7 @@ function UpdateCarCategory({ onClickCancel, setSnackBar, categ, getCategories })
             name: category,
             timePrice: timePrice,
             KMPrice: kmPrice,
+            openPrice: openPrice
         }));
 
         if (result.status === 200) {
@@ -45,6 +47,7 @@ function UpdateCarCategory({ onClickCancel, setSnackBar, categ, getCategories })
         setCategory(categ.name);
         setTimePrice(categ.timePrice);
         setKmPrice(categ.KMPrice);
+        setOpenPrice(categ.openPrice);
     }
 
     useEffect(() => {
@@ -68,6 +71,9 @@ function UpdateCarCategory({ onClickCancel, setSnackBar, categ, getCategories })
                 </Box>
                 <Box className='mt-16'>
                     <TextField type="number" variant="outlined" label={<FormattedMessage id="time_price" />} className="w-full max-sm:w-full" value={timePrice} onChange={(e) => setTimePrice(e.target.value)} />
+                </Box>
+                <Box className='mt-16'>
+                    <TextField type="number" variant="outlined" label={<FormattedMessage id="open_price" />} className="w-full max-sm:w-full" value={openPrice} onChange={(e) => setOpenPrice(e.target.value)} />
                 </Box>
                 <Box className='mx-auto w-1/3 mt-10 max-sm:w-full'>
                     <Button onClick={updateCategory} variant='outlined' className='!rounded-full w-full !border-green-500 !bg-green-500 !text-white hover:!bg-white hover:!text-green-500'>
