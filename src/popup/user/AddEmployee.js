@@ -33,9 +33,9 @@ function AddEmployee({ onClickCancel, setSnackBar, getEmployees }) {
         });
 
 
-        let result = await Fetch(host + '/api/employees/store', 'POST', formData);
+        let result = await Fetch(host + '/api/addEmployee', 'POST', formData);
 
-        if (result.status === 200) {
+        if (result.status === 201) {
             setSnackBar('success', <FormattedMessage id="added_success" />);
             getEmployees();
             onClickCancel();
@@ -79,15 +79,15 @@ function AddEmployee({ onClickCancel, setSnackBar, getEmployees }) {
                         <option selected value="">Manager</option>
                     </select>
                 </Box>
-                <FormControlLabel
+                {/* <FormControlLabel
                     control={<Checkbox checked={status} onChange={(e) => setStatus(e.target.checked)} />}
                     label={<FormattedMessage id="status" />}
-                />
-                <Box className="relative w-full h-32 bg-gray-200 rounded-xl mt-10 flex flex-col items-center justify-center cursor-pointer">
+                /> */}
+                {/* <Box className="relative w-full h-32 bg-gray-200 rounded-xl mt-10 flex flex-col items-center justify-center cursor-pointer">
                     <CloudUploadOutlinedIcon fontSize="large" className="" />
                     <Typography variant="body1" className="text-gray-700"><FormattedMessage id="image" /></Typography>
                     <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} className="w-full h-full opacity-0 absolute cursor-pointer" />
-                </Box>
+                </Box> */}
                 <Box className='mx-auto w-1/3 mt-10 max-sm:w-full'>
                     <Button onClick={addUser} variant='outlined' className='!rounded-full w-full !border-green-500 !bg-green-500 !text-white hover:!bg-white hover:!text-green-500'>
                         {

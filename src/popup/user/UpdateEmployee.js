@@ -32,12 +32,14 @@ function UpdateEmployee({ onClickCancel, setSnackBar, getEmployees, employee }) 
             role: role,
         });
 
+        formData.append('id', employee.id);
 
-        let result = await Fetch(host + `/api/employees/update/${employee.id}`, 'POST', formData);
+
+        let result = await Fetch(host + `/api/updateEmployee`, 'POST', formData);
 
         if (result.status === 200) {
             setSnackBar('success', <FormattedMessage id="updated_success" />);
-            getEmployees();
+            await getEmployees();
             onClickCancel();
         } else if (result.status === 422) {
             setSnackBar('error', <FormattedMessage id="fields_empty" />);
@@ -47,13 +49,13 @@ function UpdateEmployee({ onClickCancel, setSnackBar, getEmployees, employee }) 
     }
 
     const resetValue = () => {
-        setFirstName(employee.first_name);
-        setLastName(employee.last_name);
+        setFirstName(employee.firstName);
+        setLastName(employee.lastName);
         setPassword('');
-        setPhone(employee.phone);
+        setPhone(employee.number);
         setImage('');
         setStatus(employee.status);
-        setRole(employee.role);
+        setRole(employee.roll);
     }
 
     useEffect(() => {
@@ -74,7 +76,7 @@ function UpdateEmployee({ onClickCancel, setSnackBar, getEmployees, employee }) 
                     <TextField variant="outlined" label={<FormattedMessage id="last_name" />} className="w-2/5 max-sm:w-full max-sm:!mt-3" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                 </Box>
                 <Box className='flex justify-between mt-3 max-sm:flex-col'>
-                    <TextField type="number" variant="outlined" label={<FormattedMessage id="phone" />} className="w-2/5 max-sm:w-full max-sm:!mt-3" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                    <TextField variant="outlined" label={<FormattedMessage id="phone" />} className="w-2/5 max-sm:w-full max-sm:!mt-3" value={phone} aria-readonly />
                     <TextField type="password" variant="outlined" label={<FormattedMessage id="password" />} className="w-2/5 max-sm:w-full" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </Box>
                 <Box className='flex justify-between mt-5 max-sm:flex-col'>
@@ -84,15 +86,15 @@ function UpdateEmployee({ onClickCancel, setSnackBar, getEmployees, employee }) 
                         <option selected value="">Manager</option>
                     </select>
                 </Box>
-                <FormControlLabel
+                {/* <FormControlLabel
                     control={<Checkbox checked={status} onChange={(e) => setStatus(e.target.checked)} />}
                     label={<FormattedMessage id="status" />}
-                />
-                <Box className="relative w-full h-32 bg-gray-200 rounded-xl mt-10 flex flex-col items-center justify-center cursor-pointer">
+                /> */}
+                {/* <Box className="relative w-full h-32 bg-gray-200 rounded-xl mt-10 flex flex-col items-center justify-center cursor-pointer">
                     <CloudUploadOutlinedIcon fontSize="large" className="" />
                     <Typography variant="body1" className="text-gray-700"><FormattedMessage id="image" /></Typography>
                     <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} className="w-full h-full opacity-0 absolute cursor-pointer" />
-                </Box>
+                </Box> */}
                 <Box className='mx-auto w-1/3 mt-10 max-sm:w-full'>
                     <Button onClick={updateUser} variant='outlined' className='!rounded-full w-full !border-green-500 !bg-green-500 !text-white hover:!bg-white hover:!text-green-500'>
                         {

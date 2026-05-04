@@ -36,27 +36,26 @@ function Employees() {
 
     {/* Get Employees Function */ }
     const getEmployees = async () => {
-        // let result = await Fetch(host + `/api/drivers/index?page=${page + 1}`, 'GET', null);
-        // if (result.status === 200) {
-        //     setTotalPages(result.data.data.last_page);
-        //     setDriversCounts(result.data.data.total);
-        //     setDrivers(result.data.data.data);
-        //     setCurrentPage(page);
-        // }
+        let result = await Fetch(host + `/api/getEmployee`, 'GET', null);
+        if (result.status === 200) {
+            setEmployees(result.data.employees);
+        }
 
-        // setGetWait(false);
+        setGetWait(false);
     }
 
     {/* Delete Employee Function */ }
     const deleteEmployee = async () => {
-        // let result = await Fetch(host + `/api/drivers/${driver.id}/force`, 'DELETE', null);
+        const formData = new FormData();
+        formData.append('id', employee.id);
 
-        // if (result.status === 200) {
-        //     setDrivers((prevDrivers) => prevDrivers.filter((prevDriver) => prevDriver.id !== driver.id));
-        //     setDriversCounts(driversCounts - 1);
-        //     setSnackBar('success', <FormattedMessage id="deleted_success" />);
-        //     setDriver('');
-        // }
+        let result = await Fetch(host + `/api/deleteEmployee`, 'POST', formData);
+
+        if (result.status === 200) {
+            setEmployees((prevEmployees) => prevEmployees.filter((prevEmployee) => prevEmployee.id !== employee.id));
+            setSnackBar('success', <FormattedMessage id="deleted_success" />);
+            setEmployee('');
+        }
     }
 
     useEffect(() => {
@@ -74,7 +73,7 @@ function Employees() {
                     <Box sx={{ backgroundColor: theme.palette.background.default }}>
                         <Box className="w-4/5 rounded-xl relative overflow-y-scroll none-view-scroll" dir={language === 'en' ? 'ltr' : "rtl"} sx={{ float: language === 'en' && 'right' }}>
                             {
-                                !getWait ?
+                                getWait ?
                                     <Box className="w-full h-screen relative flex justify-center items-center">
                                         <CircularProgress className="!text-yellow-500" size={70} />
                                     </Box>
@@ -118,170 +117,29 @@ function Employees() {
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
-                                                        {/* {drivers.map((driver, index) => ( */}
-                                                        <StyledTableRow className="hover:bg-gray-200 duration-100 cursor-pointer">
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} component="th" scope="row">
-                                                                {/* {
-                                                                        driver.image ?
-                                                                            <Avatar className="w-10 h-10" src={`${host}/storage/${driver.image}`} />
-                                                                            : */}
-                                                                <Box className='w-10 h-10 rounded-full bg-gray-400 text-white text-3xl flex justify-center items-center'>
-                                                                    {/* {driver.user.firstName.charAt(0)} */}
-                                                                    A
-                                                                </Box>
-                                                                {/* } */}
-                                                            </StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="">Ahmad Khalil</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"}>0987411214</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">Support</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">
-                                                                <Box className="bg-green-200 rounded-full text-green-500 w-fit px-2 py-1">
-                                                                    <Typography fontWeight={800} variant="body1"><FormattedMessage id="active" /></Typography>
-                                                                </Box>
-                                                            </StyledTableCell>
-                                                            <StyledTableCell align="right">
-                                                                <Box className="!flex justify-around items-center">
-                                                                    <Button variant="contained" className="!bg-red-300 !font-bold !text-red-800 hover:!bg-red-500 hover:!text-white duration-300" onClick={(e) => { setPopup('delete', 'flex') }}><FormattedMessage id='delete' /></Button>
-                                                                    <Button variant="contained" className="!bg-green-300 !font-bold !text-green-800 hover:!bg-green-500 hover:!text-white duration-300" onClick={(e) => { setPopup('update', 'flex') }}><FormattedMessage id='update' /></Button>
-                                                                </Box>
-                                                            </StyledTableCell>
-                                                        </StyledTableRow>
-                                                        <StyledTableRow className="hover:bg-gray-200 duration-100 cursor-pointer">
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} component="th" scope="row">
-                                                                {/* {
-                                                                        driver.image ?
-                                                                            <Avatar className="w-10 h-10" src={`${host}/storage/${driver.image}`} />
-                                                                            : */}
-                                                                <Box className='w-10 h-10 rounded-full bg-gray-400 text-white text-3xl flex justify-center items-center'>
-                                                                    {/* {driver.user.firstName.charAt(0)} */}
-                                                                    A
-                                                                </Box>
-                                                                {/* } */}
-                                                            </StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="">Ahmad Khalil</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"}>0987411214</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">Support</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">
-                                                                <Box className="bg-green-200 rounded-full text-green-500 w-fit px-2 py-1">
-                                                                    <Typography fontWeight={800} variant="body1"><FormattedMessage id="active" /></Typography>
-                                                                </Box>
-                                                            </StyledTableCell>
-                                                            <StyledTableCell align="right">
-                                                                <Box className="!flex justify-around items-center">
-                                                                    <Button variant="contained" className="!bg-red-300 !font-bold !text-red-800 hover:!bg-red-500 hover:!text-white duration-300" onClick={(e) => { setPopup('delete', 'flex') }}><FormattedMessage id='delete' /></Button>
-                                                                    <Button variant="contained" className="!bg-green-300 !font-bold !text-green-800 hover:!bg-green-500 hover:!text-white duration-300" onClick={(e) => { setPopup('update', 'flex') }}><FormattedMessage id='update' /></Button>
-                                                                </Box>
-                                                            </StyledTableCell>
-                                                        </StyledTableRow>
-                                                        <StyledTableRow className="hover:bg-gray-200 duration-100 cursor-pointer">
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} component="th" scope="row">
-                                                                {/* {
-                                                                        driver.image ?
-                                                                            <Avatar className="w-10 h-10" src={`${host}/storage/${driver.image}`} />
-                                                                            : */}
-                                                                <Box className='w-10 h-10 rounded-full bg-gray-400 text-white text-3xl flex justify-center items-center'>
-                                                                    {/* {driver.user.firstName.charAt(0)} */}
-                                                                    A
-                                                                </Box>
-                                                                {/* } */}
-                                                            </StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="">Ahmad Khalil</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"}>0987411214</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">Support</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">
-                                                                <Box className="bg-green-200 rounded-full text-green-500 w-fit px-2 py-1">
-                                                                    <Typography fontWeight={800} variant="body1"><FormattedMessage id="active" /></Typography>
-                                                                </Box>
-                                                            </StyledTableCell>
-                                                            <StyledTableCell align="right">
-                                                                <Box className="!flex justify-around items-center">
-                                                                    <Button variant="contained" className="!bg-red-300 !font-bold !text-red-800 hover:!bg-red-500 hover:!text-white duration-300" onClick={(e) => { setPopup('delete', 'flex') }}><FormattedMessage id='delete' /></Button>
-                                                                    <Button variant="contained" className="!bg-green-300 !font-bold !text-green-800 hover:!bg-green-500 hover:!text-white duration-300" onClick={(e) => { setPopup('update', 'flex') }}><FormattedMessage id='update' /></Button>
-                                                                </Box>
-                                                            </StyledTableCell>
-                                                        </StyledTableRow>
-                                                        <StyledTableRow className="hover:bg-gray-200 duration-100 cursor-pointer">
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} component="th" scope="row">
-                                                                {/* {
-                                                                        driver.image ?
-                                                                            <Avatar className="w-10 h-10" src={`${host}/storage/${driver.image}`} />
-                                                                            : */}
-                                                                <Box className='w-10 h-10 rounded-full bg-gray-400 text-white text-3xl flex justify-center items-center'>
-                                                                    {/* {driver.user.firstName.charAt(0)} */}
-                                                                    A
-                                                                </Box>
-                                                                {/* } */}
-                                                            </StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="">Ahmad Khalil</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"}>0987411214</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">Support</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">
-                                                                <Box className="bg-green-200 rounded-full text-green-500 w-fit px-2 py-1">
-                                                                    <Typography fontWeight={800} variant="body1"><FormattedMessage id="active" /></Typography>
-                                                                </Box>
-                                                            </StyledTableCell>
-                                                            <StyledTableCell align="right">
-                                                                <Box className="!flex justify-around items-center">
-                                                                    <Button variant="contained" className="!bg-red-300 !font-bold !text-red-800 hover:!bg-red-500 hover:!text-white duration-300" onClick={(e) => { setPopup('delete', 'flex') }}><FormattedMessage id='delete' /></Button>
-                                                                    <Button variant="contained" className="!bg-green-300 !font-bold !text-green-800 hover:!bg-green-500 hover:!text-white duration-300" onClick={(e) => { setPopup('update', 'flex') }}><FormattedMessage id='update' /></Button>
-                                                                </Box>
-                                                            </StyledTableCell>
-                                                        </StyledTableRow>
-                                                        <StyledTableRow className="hover:bg-gray-200 duration-100 cursor-pointer">
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} component="th" scope="row">
-                                                                {/* {
-                                                                        driver.image ?
-                                                                            <Avatar className="w-10 h-10" src={`${host}/storage/${driver.image}`} />
-                                                                            : */}
-                                                                <Box className='w-10 h-10 rounded-full bg-gray-400 text-white text-3xl flex justify-center items-center'>
-                                                                    {/* {driver.user.firstName.charAt(0)} */}
-                                                                    A
-                                                                </Box>
-                                                                {/* } */}
-                                                            </StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="">Ahmad Khalil</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"}>0987411214</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">Support</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">
-                                                                <Box className="bg-orange-200 rounded-full text-orange-500 w-fit px-2 py-1">
-                                                                    <Typography fontWeight={800} variant="body1"><FormattedMessage id="inactive" /></Typography>
-                                                                </Box>
-                                                            </StyledTableCell>
-                                                            <StyledTableCell align="right">
-                                                                <Box className="!flex justify-around items-center">
-                                                                    <Button variant="contained" className="!bg-red-300 !font-bold !text-red-800 hover:!bg-red-500 hover:!text-white duration-300" onClick={(e) => { setPopup('delete', 'flex') }}><FormattedMessage id='delete' /></Button>
-                                                                    <Button variant="contained" className="!bg-green-300 !font-bold !text-green-800 hover:!bg-green-500 hover:!text-white duration-300" onClick={(e) => { setPopup('update', 'flex') }}><FormattedMessage id='update' /></Button>
-                                                                </Box>
-                                                            </StyledTableCell>
-                                                        </StyledTableRow>
-                                                        <StyledTableRow className="hover:bg-gray-200 duration-100 cursor-pointer">
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} component="th" scope="row">
-                                                                {/* {
-                                                                        driver.image ?
-                                                                            <Avatar className="w-10 h-10" src={`${host}/storage/${driver.image}`} />
-                                                                            : */}
-                                                                <Box className='w-10 h-10 rounded-full bg-gray-400 text-white text-3xl flex justify-center items-center'>
-                                                                    {/* {driver.user.firstName.charAt(0)} */}
-                                                                    A
-                                                                </Box>
-                                                                {/* } */}
-                                                            </StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="">Ahmad Khalil</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"}>0987411214</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">Support</StyledTableCell>
-                                                            <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">
-                                                                <Box className="bg-green-200 rounded-full text-green-500 w-fit px-2 py-1">
-                                                                    <Typography fontWeight={800} variant="body1"><FormattedMessage id="active" /></Typography>
-                                                                </Box>
-                                                            </StyledTableCell>
-                                                            <StyledTableCell align="right">
-                                                                <Box className="!flex justify-around items-center">
-                                                                    <Button variant="contained" className="!bg-red-300 !font-bold !text-red-800 hover:!bg-red-500 hover:!text-white duration-300" onClick={(e) => { setPopup('delete', 'flex') }}><FormattedMessage id='delete' /></Button>
-                                                                    <Button variant="contained" className="!bg-green-300 !font-bold !text-green-800 hover:!bg-green-500 hover:!text-white duration-300" onClick={(e) => { setPopup('update', 'flex') }}><FormattedMessage id='update' /></Button>
-                                                                </Box>
-                                                            </StyledTableCell>
-                                                        </StyledTableRow>
-                                                        {/* ))} */}
+                                                        {employees.map((employee, index) => (
+                                                            <StyledTableRow className="hover:bg-gray-200 duration-100 cursor-pointer">
+                                                                <StyledTableCell align={language === 'en' ? "left" : "right"} component="th" scope="row">
+                                                                    <Box className='w-10 h-10 rounded-full bg-gray-400 text-white text-3xl flex justify-center items-center'>
+                                                                        {employee.firstName.charAt(0)}
+                                                                    </Box>
+                                                                </StyledTableCell>
+                                                                <StyledTableCell align={language === 'en' ? "left" : "right"} className="">{employee.firstName + ' ' + employee.lastName}</StyledTableCell>
+                                                                <StyledTableCell align={language === 'en' ? "left" : "right"}>{employee.number}</StyledTableCell>
+                                                                <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">{employee.roll}</StyledTableCell>
+                                                                <StyledTableCell align={language === 'en' ? "left" : "right"} className="text-center">
+                                                                    <Box className="bg-green-200 rounded-full text-green-500 w-fit px-2 py-1">
+                                                                        <Typography fontWeight={800} variant="body1"><FormattedMessage id="active" /></Typography>
+                                                                    </Box>
+                                                                </StyledTableCell>
+                                                                <StyledTableCell align="right">
+                                                                    <Box className="!flex justify-around items-center">
+                                                                        <Button variant="contained" className="!bg-red-300 !font-bold !text-red-800 hover:!bg-red-500 hover:!text-white duration-300" onClick={(e) => { setEmployee(employee); setPopup('delete', 'flex') }}><FormattedMessage id='delete' /></Button>
+                                                                        <Button variant="contained" className="!bg-green-300 !font-bold !text-green-800 hover:!bg-green-500 hover:!text-white duration-300" onClick={(e) => { setEmployee(employee); setPopup('update', 'flex') }}><FormattedMessage id='update' /></Button>
+                                                                    </Box>
+                                                                </StyledTableCell>
+                                                            </StyledTableRow>
+                                                        ))}
                                                     </TableBody>
                                                 </Table>
 

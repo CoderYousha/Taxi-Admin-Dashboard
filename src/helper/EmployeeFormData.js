@@ -9,9 +9,9 @@ export function buildEmployeeFormData ({
 }){
     const formData = new FormData();
 
-    formData.append('first_name', firstName);
-    formData.append('last_name', lastName);
-    formData.append('phone', phone);
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('number', phone);
     if(image) formData.append('image', image);
     formData.append('status', status);
     formData.append('role', role);
